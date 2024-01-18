@@ -1,8 +1,19 @@
 # Training a transformer model on Bach
 import tensorflow as tf
 
-# Sample data (shape = [batch_size, sequence_length])
-sample_input = tf.constant([[1, 2, 3], [4, 5, 6]])
+# Training data as a sequence of MIDI numbers
+midi_sequence = [60, 41, 52, 63, 68, 63, 52]  
+sequence_length = 5
+
+# Prepare the sequences as input for the model
+sample_input = []
+for i in range(len(midi_sequence) - sequence_length):
+    # Training data (shape = [batch_size, sequence_length])
+    seq_in = midi_sequence[i:i + sequence_length]
+    sample_input.append(seq_in)
+
+# Converting to TensorFlow tensor
+sample_input = tf.constant(sample_input)
 
 # Parameters
 embedding_dim = 64
