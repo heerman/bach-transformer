@@ -11,3 +11,9 @@ python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
+
+Train the model.
+
+```sh 
+python3 train.py
+```
