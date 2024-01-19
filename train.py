@@ -1,9 +1,21 @@
-# Training a transformer model on Bach
+# A Bach transformer model
+import music21
 import tensorflow as tf
 
 # Training data as a sequence of MIDI numbers
-midi_sequence = [60, 41, 52, 63, 68, 63, 52]  
+midi_sequence = []
 sequence_length = 5
+
+# Bach corpus from music21
+bwv846 = music21.corpus.parse('bach/bwv846')
+for part in bwv846.parts:
+    for measure in part.measures(1, None):
+        if isinstance(measure, music21.stream.base.Measure):
+            for element in measure.elements:
+                if isinstance(element, music21.note.Note):
+                    midi_sequence.append(element.nameWithOctave)
+
+print("Training data: ", midi_sequence)
 
 # Prepare the sequences as input for the model
 sample_input = []
